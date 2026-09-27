@@ -26,6 +26,10 @@ body {
   gap: 8px;
 }
 
+.popup__meta p {
+  margin: 0;
+}
+
 .popup__actions {
   display: flex;
   gap: 8px;

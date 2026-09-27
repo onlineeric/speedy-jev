@@ -49,7 +49,8 @@ describe('popup App', () => {
     expect(await screen.findByText('is_urgent')).toBeInTheDocument();
     expect(screen.getByText('Yes (90% yes)')).toBeInTheDocument();
     expect(screen.getByText(/Selected text · 18 characters/)).toBeInTheDocument();
-    expect(screen.getByText(/1,234 input tokens/)).toBeInTheDocument();
+    expect(screen.getByText('Model jev-1.13.0')).toBeInTheDocument();
+    expect(screen.getByText(/^1,234 input tokens/)).toBeInTheDocument();
   });
 
   it('shows the estimated cost at the default input price', async () => {
@@ -58,7 +59,9 @@ describe('popup App', () => {
     render(<App />);
 
     // 1,234 tokens × $0.042 / 1M tokens = $0.0000518
-    expect(await screen.findByText(/≈ \$0\.000052/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/≈ \$0\.000052 \(assuming \$0\.042\/MTok input\)/),
+    ).toBeInTheDocument();
   });
 
   it('uses the input price saved in Settings for the cost', async () => {
@@ -67,7 +70,9 @@ describe('popup App', () => {
 
     render(<App />);
 
-    expect(await screen.findByText(/≈ \$0\.0012/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/≈ \$0\.0012 \(assuming \$1\/MTok input\)/),
+    ).toBeInTheDocument();
   });
 
   it('shows the full captured text without truncating it', async () => {

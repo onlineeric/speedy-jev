@@ -9,10 +9,17 @@ export const DEFAULT_INPUT_PRICE_PER_MTOK = 0.042;
 
 const TOKENS_PER_MTOK = 1_000_000;
 
-const usdFormatter = new Intl.NumberFormat('en-US', {
+const costFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   maximumSignificantDigits: 2,
+});
+
+const priceFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 6,
 });
 
 /** Estimated request cost in USD. Only input tokens are billed. */
@@ -22,7 +29,12 @@ export function calculateRequestCost(usage: JevUsage, inputPricePerMTok: number)
 
 /** Formats small USD amounts with enough precision to be meaningful, e.g. `$0.000012`. */
 export function formatUsd(amount: number): string {
-  return usdFormatter.format(amount);
+  return costFormatter.format(amount);
+}
+
+/** Formats a configured price without rounding it away, e.g. `$0.042/MTok`. */
+export function formatPricePerMTok(pricePerMTok: number): string {
+  return `${priceFormatter.format(pricePerMTok)}/MTok`;
 }
 
 export function isValidPrice(price: number): boolean {

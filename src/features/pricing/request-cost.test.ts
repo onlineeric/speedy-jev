@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   calculateRequestCost,
   DEFAULT_INPUT_PRICE_PER_MTOK,
+  formatPricePerMTok,
   formatUsd,
   isValidPrice,
 } from './request-cost';
@@ -34,6 +35,17 @@ describe('formatUsd', () => {
     [0, '$0'],
   ])('formats %f as %s', (amount, expected) => {
     expect(formatUsd(amount)).toBe(expected);
+  });
+});
+
+describe('formatPricePerMTok', () => {
+  it.each([
+    [0.042, '$0.042/MTok'],
+    [0.0425, '$0.0425/MTok'],
+    [1, '$1/MTok'],
+    [0, '$0/MTok'],
+  ])('formats %f as %s without rounding to cost precision', (price, expected) => {
+    expect(formatPricePerMTok(price)).toBe(expected);
   });
 });
 

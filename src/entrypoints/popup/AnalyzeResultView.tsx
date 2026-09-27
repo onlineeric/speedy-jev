@@ -20,10 +20,10 @@ export function AnalyzeResultView({ result: { captured, response } }: AnalyzeRes
 
       <AnswerList answers={response.answers ?? {}} />
 
-      <p className="muted">
-        Model {response.model}
+      <div className="popup__meta muted">
+        <p>Model {response.model}</p>
         {response.usage && <UsageSummary usage={response.usage} />}
-      </p>
+      </div>
 
       <details>
         <summary>Captured text</summary>
