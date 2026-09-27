@@ -1,0 +1,36 @@
+body {
+  width: 400px;
+  min-height: 160px;
+}
+
+.popup {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+
+.popup__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.popup__header h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 16px;
+}
+
+.popup__section {
+  display: grid;
+  gap: 8px;
+}
+
+.popup__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.popup__scroll-box {
+  max-height: 240px;
+}

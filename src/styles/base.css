@@ -1,0 +1,107 @@
+:root {
+  color-scheme: light dark;
+  --color-bg: #ffffff;
+  --color-surface: #f4f5f7;
+  --color-border: #d9dce1;
+  --color-text: #1b1f24;
+  --color-text-muted: #5b636e;
+  --color-accent: #2f6fed;
+  --color-accent-text: #ffffff;
+  --color-danger: #c62f2f;
+  --color-success: #1f8a4c;
+  --radius: 6px;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #17191c;
+    --color-surface: #22252a;
+    --color-border: #363b42;
+    --color-text: #e6e8eb;
+    --color-text-muted: #9aa3ad;
+    --color-accent: #5b8ff5;
+    --color-danger: #f07070;
+    --color-success: #4cc27f;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+button.primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+input,
+textarea {
+  font: inherit;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+pre,
+textarea.code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+pre {
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+}
+
+summary {
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.error-text {
+  color: var(--color-danger);
+}
+
+.success-text {
+  color: var(--color-success);
+}

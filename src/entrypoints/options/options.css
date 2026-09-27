@@ -1,0 +1,41 @@
+.options {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: grid;
+  gap: 28px;
+}
+
+.options h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.settings-form {
+  display: grid;
+  gap: 10px;
+}
+
+.settings-form h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.settings-form p {
+  margin: 0;
+}
+
+.settings-form__row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.settings-form textarea {
+  min-height: 360px;
+  resize: vertical;
+}
+
+code {
+  font-family: var(--font-mono);
+}
