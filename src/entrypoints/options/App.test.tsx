@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_REQUEST_TEMPLATE } from '../../features/request-template/default-request-template';
-import { apiKeySetting, requestTemplateSetting } from '../../features/settings/settings-storage';
+import {
+  apiKeySetting,
+  inputPriceSetting,
+  requestTemplateSetting,
+} from '../../features/settings/settings-storage';
 import { App } from './App';
 
 describe('options App', () => {
@@ -68,8 +72,43 @@ describe('options App', () => {
     render(<App />);
     const textarea = await screen.findByLabelText('Request body template');
 
-    await userEvent.click(screen.getByRole('button', { name: 'Reset to default' }));
+    const templateForm = textarea.closest('form')!;
+    await userEvent.click(within(templateForm).getByRole('button', { name: 'Reset to default' }));
 
     expect(textarea).toHaveValue(DEFAULT_REQUEST_TEMPLATE);
+  });
+
+  it('saves a new input price', async () => {
+    render(<App />);
+    const input = await screen.findByLabelText('Input price in USD per million tokens');
+    expect(input).toHaveValue(0.042);
+
+    await userEvent.clear(input);
+    await userEvent.type(input, '0.05');
+    await userEvent.click(screen.getByRole('button', { name: 'Save price' }));
+
+    await screen.findByText('Saved.');
+    await expect(inputPriceSetting.getValue()).resolves.toBe(0.05);
+  });
+
+  it('blocks saving an empty input price', async () => {
+    render(<App />);
+    const input = await screen.findByLabelText('Input price in USD per million tokens');
+
+    await userEvent.clear(input);
+
+    expect(screen.getByText('Enter a price of 0 or more.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save price' })).toBeDisabled();
+  });
+
+  it('resets the input price field to the default', async () => {
+    await inputPriceSetting.setValue(1);
+    render(<App />);
+    const input = await screen.findByLabelText('Input price in USD per million tokens');
+
+    const priceForm = input.closest('form')!;
+    await userEvent.click(within(priceForm).getByRole('button', { name: 'Reset to default' }));
+
+    expect(input).toHaveValue(0.042);
   });
 });

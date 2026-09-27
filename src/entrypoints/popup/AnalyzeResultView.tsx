@@ -1,5 +1,6 @@
 import { AnswerList } from '../../components/AnswerList';
 import type { AnalyzeResult } from '../../features/analyze/analyze-page';
+import { UsageSummary } from './UsageSummary';
 
 const SOURCE_LABELS = {
   selection: 'Selected text',
@@ -21,7 +22,7 @@ export function AnalyzeResultView({ result: { captured, response } }: AnalyzeRes
 
       <p className="muted">
         Model {response.model}
-        {response.usage && ` · ${response.usage.input_tokens.toLocaleString()} input tokens`}
+        {response.usage && <UsageSummary usage={response.usage} />}
       </p>
 
       <details>

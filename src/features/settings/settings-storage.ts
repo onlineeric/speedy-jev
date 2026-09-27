@@ -1,4 +1,5 @@
 import { storage } from 'wxt/utils/storage';
+import { DEFAULT_INPUT_PRICE_PER_MTOK } from '../pricing/request-cost';
 import { DEFAULT_REQUEST_TEMPLATE } from '../request-template/default-request-template';
 
 /*
@@ -12,6 +13,11 @@ export const apiKeySetting = storage.defineItem<string>('local:jevApiKey', {
 
 export const requestTemplateSetting = storage.defineItem<string>('local:requestTemplate', {
   fallback: DEFAULT_REQUEST_TEMPLATE,
+});
+
+/** USD per million input tokens, used to estimate the cost shown in the popup. */
+export const inputPriceSetting = storage.defineItem<number>('local:inputPricePerMTok', {
+  fallback: DEFAULT_INPUT_PRICE_PER_MTOK,
 });
 
 export interface Settings {

@@ -17,6 +17,12 @@ Targets Chrome, Edge and Firefox from a single codebase.
 Configure your API key and the request template on the **Settings** page (Settings button in the
 popup, or right-click the icon → Options).
 
+The popup also shows the input token count and an estimated cost. TypeSafe has no pricing API
+(`GET /v1/models` returns only names, descriptions and release dates), so the price comes from
+the **Input price** setting. It defaults to Jev 1.13's $0.042 per million input tokens (output
+tokens are free), and you can update it when [the price](https://docs.typesafe.ai/models)
+changes.
+
 ## Getting started
 
 ```bash
@@ -107,8 +113,9 @@ src/
 │   ├── analyze/            # Use case: capture → fill template → call Jev
 │   ├── jev-api/            # HTTP client, response types, errors, answer formatting
 │   ├── page-capture/       # Read selection / page text from the active tab
+│   ├── pricing/            # Request cost estimate and USD formatting
 │   ├── request-template/   # Default template, validation, {{text}} substitution
-│   └── settings/           # Typed storage items (API key, template)
+│   └── settings/           # Typed storage items (API key, template, input price)
 ├── components/             # Reusable React components
 ├── hooks/                  # Reusable React hooks
 └── styles/                 # Shared CSS (theme tokens, light/dark)

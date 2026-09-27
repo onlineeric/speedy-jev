@@ -5,6 +5,7 @@ import { fakeBrowser } from 'wxt/testing/fake-browser';
 import { analyzeActivePage, type AnalyzeResult } from '../../features/analyze/analyze-page';
 import { MissingApiKeyError } from '../../features/analyze/analyze-errors';
 import { JevApiError } from '../../features/jev-api/jev-api-error';
+import { inputPriceSetting } from '../../features/settings/settings-storage';
 import { App } from './App';
 
 vi.mock('../../features/analyze/analyze-page', () => ({
@@ -49,6 +50,24 @@ describe('popup App', () => {
     expect(screen.getByText('Yes (90% yes)')).toBeInTheDocument();
     expect(screen.getByText(/Selected text · 18 characters/)).toBeInTheDocument();
     expect(screen.getByText(/1,234 input tokens/)).toBeInTheDocument();
+  });
+
+  it('shows the estimated cost at the default input price', async () => {
+    analyzeMock.mockResolvedValue(RESULT);
+
+    render(<App />);
+
+    // 1,234 tokens × $0.042 / 1M tokens = $0.0000518
+    expect(await screen.findByText(/≈ \$0\.000052/)).toBeInTheDocument();
+  });
+
+  it('uses the input price saved in Settings for the cost', async () => {
+    await inputPriceSetting.setValue(1);
+    analyzeMock.mockResolvedValue(RESULT);
+
+    render(<App />);
+
+    expect(await screen.findByText(/≈ \$0\.0012/)).toBeInTheDocument();
   });
 
   it('shows the full captured text without truncating it', async () => {

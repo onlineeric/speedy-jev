@@ -1,11 +1,17 @@
 import { useStoredSetting } from '../../hooks/use-stored-setting';
-import { apiKeySetting, requestTemplateSetting } from '../../features/settings/settings-storage';
+import {
+  apiKeySetting,
+  inputPriceSetting,
+  requestTemplateSetting,
+} from '../../features/settings/settings-storage';
 import { ApiKeyForm } from './ApiKeyForm';
+import { InputPriceForm } from './InputPriceForm';
 import { RequestTemplateForm } from './RequestTemplateForm';
 
 export function App() {
   const apiKey = useStoredSetting(apiKeySetting);
   const requestTemplate = useStoredSetting(requestTemplateSetting);
+  const inputPrice = useStoredSetting(inputPriceSetting);
 
   return (
     <main className="options">
@@ -15,6 +21,9 @@ export function App() {
       )}
       {requestTemplate.value !== undefined && (
         <RequestTemplateForm initialTemplate={requestTemplate.value} onSave={requestTemplate.save} />
+      )}
+      {inputPrice.value !== undefined && (
+        <InputPriceForm initialPrice={inputPrice.value} onSave={inputPrice.save} />
       )}
     </main>
   );
