@@ -40,6 +40,7 @@ npm install
 | `npm run test:watch` | Run tests in watch mode |
 | `npm run test:coverage` | Run tests with coverage report |
 | `npm run compile` | Type-check |
+| `npm run icons` | Regenerate `public/icon/*.png` from `resources/speedy-jev-icon.svg` |
 
 ### Load the extension locally
 
@@ -147,4 +148,3 @@ Guidelines:
 - Only the top frame is read (text inside iframes is not captured).
 - Text selected inside `<input>` / `<textarea>` fields is not treated as a selection.
 - Closing the popup cancels an in-flight request.
-- Uses WXT's placeholder icons.
