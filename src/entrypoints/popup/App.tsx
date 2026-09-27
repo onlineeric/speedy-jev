@@ -1,3 +1,4 @@
+import iconUrl from '../../../resources/speedy-jev-icon.svg';
 import { useAnalyzeActivePage } from '../../hooks/use-analyze-active-page';
 import { AnalyzeErrorView } from './AnalyzeErrorView';
 import { AnalyzeResultView } from './AnalyzeResultView';
@@ -14,7 +15,11 @@ export function App() {
   return (
     <main className="popup">
       <header className="popup__header">
-        <h1>Speedy Jev</h1>
+        <h1 className="popup__title">
+          {/* The vector source stays sharp at any size and screen density. */}
+          <img src={iconUrl} alt="" width={32} height={32} />
+          Speedy Jev
+        </h1>
         <button type="button" onClick={rerun} disabled={state.status === 'loading'}>
           Run again
         </button>

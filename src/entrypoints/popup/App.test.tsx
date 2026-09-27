@@ -6,6 +6,7 @@ import { analyzeActivePage, type AnalyzeResult } from '../../features/analyze/an
 import { MissingApiKeyError } from '../../features/analyze/analyze-errors';
 import { JevApiError } from '../../features/jev-api/jev-api-error';
 import { inputPriceSetting } from '../../features/settings/settings-storage';
+import iconUrl from '../../../resources/speedy-jev-icon.svg';
 import { App } from './App';
 
 vi.mock('../../features/analyze/analyze-page', () => ({
@@ -29,6 +30,15 @@ beforeEach(() => {
 });
 
 describe('popup App', () => {
+  it('shows the extension icon before the title', () => {
+    analyzeMock.mockReturnValue(new Promise(() => {}));
+
+    render(<App />);
+
+    const heading = screen.getByRole('heading', { name: 'Speedy Jev' });
+    expect(heading.querySelector('img')).toHaveAttribute('src', iconUrl);
+  });
+
   it('shows progress while Jev is working', async () => {
     analyzeMock.mockImplementation(({ onStep } = {}) => {
       onStep?.('sending');
