@@ -1,3 +1,5 @@
+// Named import so the bundler inlines only the version string, not the whole package.json.
+import { version } from '../../../package.json';
 import { AnswerList } from '../../components/AnswerList';
 import type { AnalyzeResult } from '../../features/analyze/analyze-page';
 import { UsageSummary } from './UsageSummary';
@@ -26,6 +28,7 @@ export function AnalyzeResultView({
       <div className="popup__meta muted">
         <p>Model {response.model}</p>
         {response.usage && <UsageSummary usage={response.usage} />}
+        <p>Version {version}</p>
       </div>
 
       <details>

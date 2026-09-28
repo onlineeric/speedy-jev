@@ -6,6 +6,7 @@ import { analyzeActivePage, type AnalyzeResult } from '../../features/analyze/an
 import { MissingApiKeyError } from '../../features/analyze/analyze-errors';
 import { JevApiError } from '../../features/jev-api/jev-api-error';
 import { inputPriceSetting } from '../../features/settings/settings-storage';
+import { version } from '../../../package.json';
 import iconUrl from '../../../resources/speedy-jev-icon.svg';
 import { App } from './App';
 
@@ -62,6 +63,7 @@ describe('popup App', () => {
     expect(screen.getByText(/Selected text · 18 characters/)).toBeInTheDocument();
     expect(screen.getByText('Model jev-1.13.0')).toBeInTheDocument();
     expect(screen.getByText(/^1,234 input tokens/)).toBeInTheDocument();
+    expect(screen.getByText(`Version ${version}`)).toBeInTheDocument();
   });
 
   it('says when the captured text was copied to the clipboard', async () => {
