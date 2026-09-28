@@ -1,154 +1,171 @@
-# Speedy Jev
+<p align="center">
+  <img src="public/icon/128.png" alt="Speedy Jev icon" width="96" height="96">
+</p>
 
-A fast, lightweight browser extension that sends the selected text (or the whole page) to
-[Jev by TypeSafe AI](https://docs.typesafe.ai) and shows the typed answers in the popup.
-Bring your own API key.
+<h1 align="center">Speedy Jev</h1>
 
-Targets Chrome, Edge and Firefox from a single codebase.
+<p align="center">
+  <strong>Ask AI questions about any web page in one click.</strong><br>
+  Select some text (or nothing at all), click the icon, and get clear, structured answers from
+  <a href="https://docs.typesafe.ai">Jev by TypeSafe AI</a> in seconds.
+</p>
 
-## How it works
+<p align="center">
+  Chrome · Edge · Firefox · Free · Bring your own API key
+</p>
 
-1. Click the toolbar icon.
-2. The popup reads the **selected text** from the active tab, or the **whole page text** when
-   nothing is selected.
-3. The text replaces every `{{text}}` placeholder in your request body template.
-4. The body is POSTed to `https://api.typesafe.ai/v1/systemone` and the answers are shown.
+## Author
 
-The captured text is also copied to the clipboard while the request runs. Turn this off with the
-**Clipboard** setting.
+Built by **Eric Cheng** ([@onlineeric](https://github.com/onlineeric)), the author of
+[**Speedy Git**](https://github.com/onlineeric/speedy-git-ext), a performance-first Git graph,
+Git action tool and Git worktrees manager for VS Code, Cursor and other coding IDEs.
 
-Configure your API key and the request template on the **Settings** page (Settings button in the
-popup, or right-click the icon → Options).
+Speedy Jev follows the same idea: fast, lightweight and focused on getting you the answer
+without getting in your way.
 
-The popup also shows the input token count and an estimated cost. TypeSafe has no pricing API
-(`GET /v1/models` returns only names, descriptions and release dates), so the price comes from
-the **Input price** setting. It defaults to Jev 1.13's $0.042 per million input tokens (output
-tokens are free), and you can update it when [the price](https://docs.typesafe.ai/models)
-changes.
+---
 
-## Getting started
+## Why Speedy Jev?
 
-```bash
-pnpm install
-```
+Most AI tools make you copy text, switch tabs, paste, type a prompt, and read a long reply.
+Speedy Jev skips all of that.
 
-| Command | What it does |
+- **One click, instant answers.** No chat window, no prompt typing. Click the toolbar icon and the
+  answers are there.
+- **Answers you can act on.** You get short, structured results like *"Positive · 82% confidence"*
+  or *"Yes (91% yes)"*, not paragraphs of text.
+- **Your questions, reused everywhere.** Set up the questions you care about once, then ask them
+  about any article, email, review, product page or support ticket.
+- **Selection or whole page.** Highlight a paragraph to ask about just that part, or select
+  nothing to use the whole page.
+- **Know what it costs.** Every result shows the token count and an estimated cost, so there are
+  no surprises on your bill.
+- **Private by design.** Your API key stays on your device. Nothing is read from a page until you
+  click, and text is only sent to Jev.
+- **Fast and lightweight.** A tiny popup with nothing running in the background, so it never
+  slows down your browsing.
+
+## What can you use it for?
+
+Out of the box, Speedy Jev answers three example questions about any page:
+
+| Question | Example answer |
 | --- | --- |
-| `pnpm dev` | Dev build with hot reload for Chrome (`.output/chrome-mv3-dev`) |
-| `pnpm dev:edge` / `dev:firefox` | Same for Edge / Firefox |
-| `pnpm build` | Production build for Chrome (`.output/chrome-mv3`) |
-| `pnpm build:edge` / `build:firefox` | Production build for Edge / Firefox |
-| `pnpm zip` (`:edge`, `:firefox`) | Zip a build for store upload |
-| `pnpm test` | Run unit tests once |
-| `pnpm test:watch` | Run tests in watch mode |
-| `pnpm test:coverage` | Run tests with coverage report |
-| `pnpm compile` | Type-check |
-| `pnpm icons` | Regenerate `public/icon/*.png` from `resources/speedy-jev-icon.svg` |
+| What is the overall sentiment of this text? | Positive · score 3.12 (88% confidence) |
+| What kind of content is this? | opinion (93% confidence) |
+| Does this text ask the reader to take a specific action? | No (12% yes) |
 
-### Load the extension locally
+Swap them for your own questions to fit how you work, for example:
 
-**Chrome / Edge**
+- **Research:** Is this source news, opinion or marketing? Does it cite evidence?
+- **Customer support:** How urgent is this ticket? Is the customer angry? Is it a bug or a
+  feature request?
+- **Shopping:** Is this review genuine? Does this product page mention a warranty?
+- **Recruiting:** Does this profile match the role? Which seniority level fits best?
+- **Content moderation:** Is this comment spam? Does it break the community rules?
+- **Email triage:** Does this email need a reply today?
 
-1. Run `pnpm dev` (or `pnpm build`).
-2. Open `chrome://extensions` (or `edge://extensions`) and turn on **Developer mode**.
-3. Click **Load unpacked** and pick `.output/chrome-mv3-dev` (or `.output/chrome-mv3`).
-   On WSL the folder is at `\\wsl.localhost\<distro>\<path-to-repo>\.output\...`.
-4. Pin Speedy Jev, open **Settings**, and paste your Jev API key.
+Jev supports three kinds of questions, so you can ask almost anything:
 
-**Firefox**
+- **Yes / no** questions, answered with a probability.
+- **Multiple choice** questions, answered with the best option and a confidence.
+- **Score** questions on your own scale (for example *Very negative* to *Very positive*).
 
-1. Run `pnpm build:firefox`.
-2. Open `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on…**
-3. Pick `.output/firefox-mv2/manifest.json`.
+## Get started in 2 minutes
 
-By default `pnpm dev` opens a fresh browser with the extension installed. On WSL, where it
-cannot launch a Windows browser, create a local (gitignored) `web-ext.config.ts`:
+1. **Install Speedy Jev** for your browser (see [Install](#install) below).
+2. **Get a Jev API key** from [TypeSafe AI](https://docs.typesafe.ai).
+3. **Add your key.** Click the Speedy Jev icon, then **Settings** (or right-click the icon →
+   **Options**), and paste your key.
+4. **Pin the icon** to your toolbar so it is always one click away.
+5. **Try it.** Open any article, optionally select some text, and click the icon.
 
-```ts
-import { defineWebExtConfig } from 'wxt';
+That's it. The first answers use the example questions, so you can see how it works right away.
 
-export default defineWebExtConfig({ disabled: true });
-```
+## Install
 
-## Request template
+<!-- TODO: Add Chrome Web Store, Edge Add-ons and Firefox Add-ons links once published. -->
 
-The default template asks three example questions (one of each Jev question type):
+Speedy Jev works in **Google Chrome**, **Microsoft Edge** and **Mozilla Firefox**.
+
+Store listings are on the way. Until then, you can build and load it yourself by following the
+steps in [DEVELOPMENT.md](DEVELOPMENT.md#load-the-extension-locally).
+
+## Ask your own questions
+
+Open **Settings** and edit the **request template**. It is a small JSON document where each entry
+under `questions` is one question. Wherever you write `{{text}}`, Speedy Jev puts the text from the
+page.
 
 ```json
 {
   "model": "jev-latest",
   "state": "{{text}}",
   "questions": {
-    "sentiment": { "type": "score", "instructions": "...", "criteria": ["Very negative", "..."] },
-    "content_type": { "type": "choice", "instructions": "...", "criteria": { "news": "..." } },
-    "is_actionable": { "type": "noul", "instructions": "..." }
+    "needs_reply_today": {
+      "type": "noul",
+      "instructions": "Does this email need a reply today?"
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How urgent is this request?",
+      "criteria": ["Not urgent", "Low", "Medium", "High", "Critical"]
+    },
+    "category": {
+      "type": "choice",
+      "instructions": "What is this message about?",
+      "criteria": {
+        "billing": "Payments, invoices or refunds",
+        "bug": "Something is broken",
+        "feature": "A request for something new",
+        "other": "Anything else"
+      }
+    }
   }
 }
 ```
 
-- `{{text}}` can appear in any string value, any number of times, including inside a larger
-  string (for example `"Title: {{text}}"`).
-- Substitution happens on the parsed JSON, so quotes and newlines in the page text never break
-  the request.
-- See the [Jev API reference](https://docs.typesafe.ai/api) for question types.
+- `noul` is a yes / no question, `choice` is multiple choice, and `score` rates on your scale.
+- `{{text}}` can go in any text value, as many times as you like, even inside a longer sentence
+  like `"Title: {{text}}"`.
+- Any page text is safe to use: quotes, line breaks and special characters never break your
+  template.
+- See the [Jev API reference](https://docs.typesafe.ai/api) for every option.
 
-## Security
+## Other settings
 
-- The API key is saved in `browser.storage.local`. Only this extension can read it, it stays on
-  this device, and it is never synced to your browser account.
-- The key is only ever sent in the `Authorization` header to `https://api.typesafe.ai`. The
-  endpoint is hard-coded (not configurable), and the manifest only grants host access to
-  `https://api.typesafe.ai/*`.
-- The page is read with `activeTab` + `scripting`, and only when you click the extension. There
-  are no content scripts running on every page.
-- Jev's responses are rendered as text (React escaping), never as HTML.
+- **Clipboard:** Speedy Jev copies the captured text to your clipboard while it asks Jev, so you
+  can paste it elsewhere. Turn this off if you don't want it.
+- **Input price:** used for the cost estimate. It defaults to Jev 1.13's price of $0.042 per
+  million input tokens (output tokens are free). Update it if
+  [the price](https://docs.typesafe.ai/models) changes.
 
-## Architecture
+Each result also shows the model used, the text that was sent, and the raw response if you want
+the details.
 
-Built with [WXT](https://wxt.dev) (Vite-based, cross-browser MV3/MV2), React, TypeScript and
-Vitest.
+## Your privacy and security
 
-```
-src/
-├── entrypoints/            # WXT entrypoints: one folder per extension page
-│   ├── popup/              # Toolbar popup: runs the analysis and shows results
-│   └── options/            # Settings page: API key + request template
-├── features/               # Framework-free logic, grouped by domain
-│   ├── analyze/            # Use case: capture → fill template → call Jev
-│   ├── clipboard/          # Copy text to the clipboard
-│   ├── jev-api/            # HTTP client, response types, errors, answer formatting
-│   ├── page-capture/       # Read selection / page text from the active tab
-│   ├── pricing/            # Request cost estimate and USD formatting
-│   ├── request-template/   # Default template, validation, {{text}} substitution
-│   └── settings/           # Typed storage items (API key, template, input price, clipboard)
-├── components/             # Reusable React components
-├── hooks/                  # Reusable React hooks
-└── styles/                 # Shared CSS (theme tokens, light/dark)
-```
+- **Your API key stays on your device.** It is saved in the browser's local extension storage.
+  Only Speedy Jev can read it, and it is never synced to your browser account.
+- **Your key only goes to Jev.** It is sent only to `https://api.typesafe.ai`. This address is
+  built in and cannot be changed, and the extension has no permission to talk to any other site.
+- **Pages are read only when you click.** Speedy Jev does not run on the pages you visit and
+  cannot see your browsing. It reads the current tab only at the moment you click its icon.
+- **Answers are shown as plain text,** so a response can never run code in your browser.
+- **No tracking, no analytics, no accounts.** Speedy Jev has no server of its own.
 
-Guidelines:
+## Good to know
 
-- **`features/` has no React.** UI entrypoints call into features; features never import UI.
-  This keeps logic unit-testable and reusable from future entrypoints (context menu, side panel,
-  keyboard shortcut, background worker).
-- **One job per module.** E.g. `jev-client.ts` only does HTTP, `format-answer.ts` only formats.
-- **Explicit imports.** WXT auto-imports are disabled (`imports: false`) so every dependency is
-  visible.
-- **Tests sit next to the code** (`*.test.ts(x)`). Browser APIs are faked with WXT's
-  `fakeBrowser`, which is reset before every test.
+- You need your own Jev API key. Usage is billed by TypeSafe AI to your account.
+- Only one request template can be active at a time.
+- Text inside embedded frames (iframes) is not included.
+- Text selected inside input boxes and text areas is not treated as a selection, so the whole page
+  is used instead.
+- Keep the popup open until the answers arrive. Closing it cancels the request.
 
-### Extending
+## Feedback and contributing
 
-| To add… | Do this |
-| --- | --- |
-| A new setting | Add a `storage.defineItem` in `features/settings/settings-storage.ts` and a form in `entrypoints/options/` |
-| A new way to trigger analysis (context menu, shortcut) | Add a WXT entrypoint (e.g. `entrypoints/background.ts`) that calls `features/analyze` |
-| A new Jev answer type | Add the type to `jev-types.ts` and a case in `format-answer.ts` |
-| Multiple templates | Change `requestTemplateSetting` to a list, add a storage `version` + migration |
+Found a bug or have an idea? [Open an issue](https://github.com/onlineeric/speedy-jev/issues).
+If you like Speedy Jev, a ⭐ on GitHub helps other people find it.
 
-## Known limitations (v1)
-
-- One request template at a time.
-- Only the top frame is read (text inside iframes is not captured).
-- Text selected inside `<input>` / `<textarea>` fields is not treated as a selection.
-- Closing the popup cancels an in-flight request.
+Want to build it yourself or contribute code? See [DEVELOPMENT.md](DEVELOPMENT.md).

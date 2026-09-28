@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code), Codex CLI and other AI agents when working with code in this repository.
 Claude Code will use this AGENTS.md file only, not CLAUDE.md, for better compartable with other AI agents.
 
-Speedy Jev is a WXT + React + TypeScript browser extension (Chrome/Edge/Firefox). The popup captures the active tab's selected text (or whole page text), substitutes it into a user-editable JSON request template, POSTs it to Jev (`https://api.typesafe.ai/v1/systemone`), and renders the typed answers. See `README.md` for full details.
+Speedy Jev is a WXT + React + TypeScript browser extension (Chrome/Edge/Firefox). The popup captures the active tab's selected text (or whole page text), substitutes it into a user-editable JSON request template, POSTs it to Jev (`https://api.typesafe.ai/v1/systemone`), and renders the typed answers. See `README.md` for the user guide and `DEVELOPMENT.md` for build, architecture and security details.
 
 ## Principles
 
