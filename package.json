@@ -2,7 +2,7 @@
   "name": "speedy-jev",
   "description": "Send web page text to Jev by TypeSafe AI and see typed answers instantly. Bring your own API key.",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "packageManager": "pnpm@12.6.0",
   "scripts": {
