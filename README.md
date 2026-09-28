@@ -26,27 +26,27 @@ changes.
 ## Getting started
 
 ```bash
-npm install
+pnpm install
 ```
 
 | Command | What it does |
 | --- | --- |
-| `npm run dev` | Dev build with hot reload for Chrome (`.output/chrome-mv3-dev`) |
-| `npm run dev:edge` / `dev:firefox` | Same for Edge / Firefox |
-| `npm run build` | Production build for Chrome (`.output/chrome-mv3`) |
-| `npm run build:edge` / `build:firefox` | Production build for Edge / Firefox |
-| `npm run zip` (`:edge`, `:firefox`) | Zip a build for store upload |
-| `npm test` | Run unit tests once |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Run tests with coverage report |
-| `npm run compile` | Type-check |
-| `npm run icons` | Regenerate `public/icon/*.png` from `resources/speedy-jev-icon.svg` |
+| `pnpm dev` | Dev build with hot reload for Chrome (`.output/chrome-mv3-dev`) |
+| `pnpm dev:edge` / `dev:firefox` | Same for Edge / Firefox |
+| `pnpm build` | Production build for Chrome (`.output/chrome-mv3`) |
+| `pnpm build:edge` / `build:firefox` | Production build for Edge / Firefox |
+| `pnpm zip` (`:edge`, `:firefox`) | Zip a build for store upload |
+| `pnpm test` | Run unit tests once |
+| `pnpm test:watch` | Run tests in watch mode |
+| `pnpm test:coverage` | Run tests with coverage report |
+| `pnpm compile` | Type-check |
+| `pnpm icons` | Regenerate `public/icon/*.png` from `resources/speedy-jev-icon.svg` |
 
 ### Load the extension locally
 
 **Chrome / Edge**
 
-1. Run `npm run dev` (or `npm run build`).
+1. Run `pnpm dev` (or `pnpm build`).
 2. Open `chrome://extensions` (or `edge://extensions`) and turn on **Developer mode**.
 3. Click **Load unpacked** and pick `.output/chrome-mv3-dev` (or `.output/chrome-mv3`).
    On WSL the folder is at `\\wsl.localhost\<distro>\<path-to-repo>\.output\...`.
@@ -54,11 +54,11 @@ npm install
 
 **Firefox**
 
-1. Run `npm run build:firefox`.
+1. Run `pnpm build:firefox`.
 2. Open `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on…**
 3. Pick `.output/firefox-mv2/manifest.json`.
 
-By default `npm run dev` opens a fresh browser with the extension installed. On WSL, where it
+By default `pnpm dev` opens a fresh browser with the extension installed. On WSL, where it
 cannot launch a Windows browser, create a local (gitignored) `web-ext.config.ts`:
 
 ```ts

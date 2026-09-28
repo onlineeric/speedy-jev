@@ -1,5 +1,5 @@
 // Renders resources/speedy-jev-icon.svg into the PNG sizes the extension manifest uses.
-// Usage: npm run icons
+// Usage: pnpm icons
 import { mkdir } from 'node:fs/promises';
 import sharp from 'sharp';
 
