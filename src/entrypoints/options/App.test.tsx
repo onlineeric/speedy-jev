@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { DEFAULT_REQUEST_TEMPLATE } from '../../features/request-template/default-request-template';
 import {
   apiKeySetting,
+  copyCapturedTextSetting,
   inputPriceSetting,
   requestTemplateSetting,
 } from '../../features/settings/settings-storage';
@@ -110,5 +111,26 @@ describe('options App', () => {
     await userEvent.click(within(priceForm).getByRole('button', { name: 'Reset to default' }));
 
     expect(input).toHaveValue(0.042);
+  });
+
+  it('copies captured text to the clipboard by default', async () => {
+    render(<App />);
+
+    expect(
+      await screen.findByRole('checkbox', { name: 'Copy captured text to the clipboard' }),
+    ).toBeChecked();
+  });
+
+  it('saves the clipboard setting as soon as it is toggled', async () => {
+    render(<App />);
+    const checkbox = await screen.findByRole('checkbox', {
+      name: 'Copy captured text to the clipboard',
+    });
+
+    await userEvent.click(checkbox);
+
+    expect(checkbox).not.toBeChecked();
+    await screen.findByText('Saved.');
+    await expect(copyCapturedTextSetting.getValue()).resolves.toBe(false);
   });
 });

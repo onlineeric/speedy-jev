@@ -10,7 +10,9 @@ export default defineConfig({
     name: 'Speedy Jev',
     description:
       'Send web page text to Jev by TypeSafe AI and see typed answers instantly. Bring your own API key.',
-    permissions: ['activeTab', 'scripting', 'storage'],
+    // `clipboardWrite` lets the popup copy the captured text after async work, which Firefox
+    // otherwise blocks because the click that opened the popup is no longer "recent".
+    permissions: ['activeTab', 'scripting', 'storage', 'clipboardWrite'],
     // The API key is only ever sent to this host.
     host_permissions: ['https://api.typesafe.ai/*'],
   },

@@ -14,6 +14,9 @@ Targets Chrome, Edge and Firefox from a single codebase.
 3. The text replaces every `{{text}}` placeholder in your request body template.
 4. The body is POSTed to `https://api.typesafe.ai/v1/systemone` and the answers are shown.
 
+The captured text is also copied to the clipboard while the request runs. Turn this off with the
+**Clipboard** setting.
+
 Configure your API key and the request template on the **Settings** page (Settings button in the
 popup, or right-click the icon → Options).
 
@@ -112,11 +115,12 @@ src/
 │   └── options/            # Settings page: API key + request template
 ├── features/               # Framework-free logic, grouped by domain
 │   ├── analyze/            # Use case: capture → fill template → call Jev
+│   ├── clipboard/          # Copy text to the clipboard
 │   ├── jev-api/            # HTTP client, response types, errors, answer formatting
 │   ├── page-capture/       # Read selection / page text from the active tab
 │   ├── pricing/            # Request cost estimate and USD formatting
 │   ├── request-template/   # Default template, validation, {{text}} substitution
-│   └── settings/           # Typed storage items (API key, template, input price)
+│   └── settings/           # Typed storage items (API key, template, input price, clipboard)
 ├── components/             # Reusable React components
 ├── hooks/                  # Reusable React hooks
 └── styles/                 # Shared CSS (theme tokens, light/dark)

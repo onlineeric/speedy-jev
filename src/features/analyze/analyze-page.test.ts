@@ -11,9 +11,11 @@ function createDependencies(overrides: Partial<AnalyzeDependencies> = {}): Analy
     loadSettings: vi.fn().mockResolvedValue({
       apiKey: 'key-123',
       requestTemplate: '{ "model": "jev-latest", "state": "{{text}}" }',
+      copyCapturedText: true,
     }),
     captureText: vi.fn().mockResolvedValue({ text: 'Selected', source: 'selection' }),
     sendToJev: vi.fn().mockResolvedValue(JEV_RESPONSE),
+    copyToClipboard: vi.fn().mockResolvedValue(true),
     ...overrides,
   };
 }
@@ -32,7 +34,49 @@ describe('analyzeActivePage', () => {
     expect(result).toEqual({
       captured: { text: 'Selected', source: 'selection' },
       response: JEV_RESPONSE,
+      copiedToClipboard: true,
     });
+  });
+
+  it('copies the captured text to the clipboard', async () => {
+    const dependencies = createDependencies();
+
+    await analyzeActivePage({ dependencies });
+
+    expect(dependencies.copyToClipboard).toHaveBeenCalledWith('Selected');
+  });
+
+  it('does not copy the captured text when the setting is off', async () => {
+    const dependencies = createDependencies({
+      loadSettings: vi.fn().mockResolvedValue({
+        apiKey: 'key',
+        requestTemplate: '{ "state": "{{text}}" }',
+        copyCapturedText: false,
+      }),
+    });
+
+    const result = await analyzeActivePage({ dependencies });
+
+    expect(dependencies.copyToClipboard).not.toHaveBeenCalled();
+    expect(result.copiedToClipboard).toBe(false);
+  });
+
+  it('still shows the answers when copying to the clipboard fails', async () => {
+    const dependencies = createDependencies({ copyToClipboard: vi.fn().mockResolvedValue(false) });
+
+    const result = await analyzeActivePage({ dependencies });
+
+    expect(result.response).toEqual(JEV_RESPONSE);
+    expect(result.copiedToClipboard).toBe(false);
+  });
+
+  it('copies the captured text before waiting for Jev', async () => {
+    const dependencies = createDependencies({ sendToJev: vi.fn(() => new Promise<JevResponse>(() => {})) });
+
+    void analyzeActivePage({ dependencies });
+
+    await vi.waitFor(() => expect(dependencies.sendToJev).toHaveBeenCalled());
+    expect(dependencies.copyToClipboard).toHaveBeenCalledWith('Selected');
   });
 
   it('reports each step in order', async () => {

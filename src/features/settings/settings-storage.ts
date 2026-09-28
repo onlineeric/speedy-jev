@@ -20,15 +20,22 @@ export const inputPriceSetting = storage.defineItem<number>('local:inputPricePer
   fallback: DEFAULT_INPUT_PRICE_PER_MTOK,
 });
 
+/** Whether the popup copies the captured text (selection or whole page) to the clipboard. */
+export const copyCapturedTextSetting = storage.defineItem<boolean>('local:copyCapturedText', {
+  fallback: true,
+});
+
 export interface Settings {
   apiKey: string;
   requestTemplate: string;
+  copyCapturedText: boolean;
 }
 
 export async function loadSettings(): Promise<Settings> {
-  const [apiKey, requestTemplate] = await Promise.all([
+  const [apiKey, requestTemplate, copyCapturedText] = await Promise.all([
     apiKeySetting.getValue(),
     requestTemplateSetting.getValue(),
+    copyCapturedTextSetting.getValue(),
   ]);
-  return { apiKey, requestTemplate };
+  return { apiKey, requestTemplate, copyCapturedText };
 }

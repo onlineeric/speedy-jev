@@ -31,6 +31,18 @@
   align-items: center;
 }
 
+.checkbox-label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: auto;
+  margin: 0;
+}
+
 .settings-form textarea {
   min-height: 360px;
   resize: vertical;

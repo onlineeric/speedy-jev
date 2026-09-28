@@ -22,6 +22,7 @@ const RESULT: AnalyzeResult = {
     answers: { is_urgent: { type: 'noul', noul: 0.9 } },
     usage: { input_tokens: 1234, output_tokens: 5 },
   },
+  copiedToClipboard: false,
 };
 
 beforeEach(() => {
@@ -61,6 +62,25 @@ describe('popup App', () => {
     expect(screen.getByText(/Selected text · 18 characters/)).toBeInTheDocument();
     expect(screen.getByText('Model jev-1.13.0')).toBeInTheDocument();
     expect(screen.getByText(/^1,234 input tokens/)).toBeInTheDocument();
+  });
+
+  it('says when the captured text was copied to the clipboard', async () => {
+    analyzeMock.mockResolvedValue({ ...RESULT, copiedToClipboard: true });
+
+    render(<App />);
+
+    expect(
+      await screen.findByText('Selected text · 18 characters · Copied to clipboard'),
+    ).toBeInTheDocument();
+  });
+
+  it('does not mention the clipboard when nothing was copied', async () => {
+    analyzeMock.mockResolvedValue(RESULT);
+
+    render(<App />);
+
+    expect(await screen.findByText('Selected text · 18 characters')).toBeInTheDocument();
+    expect(screen.queryByText(/Copied to clipboard/)).not.toBeInTheDocument();
   });
 
   it('shows the estimated cost at the default input price', async () => {

@@ -1,10 +1,12 @@
 import { useStoredSetting } from '../../hooks/use-stored-setting';
 import {
   apiKeySetting,
+  copyCapturedTextSetting,
   inputPriceSetting,
   requestTemplateSetting,
 } from '../../features/settings/settings-storage';
 import { ApiKeyForm } from './ApiKeyForm';
+import { ClipboardForm } from './ClipboardForm';
 import { InputPriceForm } from './InputPriceForm';
 import { RequestTemplateForm } from './RequestTemplateForm';
 
@@ -12,6 +14,7 @@ export function App() {
   const apiKey = useStoredSetting(apiKeySetting);
   const requestTemplate = useStoredSetting(requestTemplateSetting);
   const inputPrice = useStoredSetting(inputPriceSetting);
+  const copyCapturedText = useStoredSetting(copyCapturedTextSetting);
 
   return (
     <main className="options">
@@ -24,6 +27,12 @@ export function App() {
       )}
       {inputPrice.value !== undefined && (
         <InputPriceForm initialPrice={inputPrice.value} onSave={inputPrice.save} />
+      )}
+      {copyCapturedText.value !== undefined && (
+        <ClipboardForm
+          initialCopyCapturedText={copyCapturedText.value}
+          onSave={copyCapturedText.save}
+        />
       )}
     </main>
   );
