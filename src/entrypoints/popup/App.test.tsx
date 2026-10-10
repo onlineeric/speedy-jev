@@ -41,6 +41,43 @@ describe('popup App', () => {
     expect(heading.querySelector('img')).toHaveAttribute('src', iconUrl);
   });
 
+  it('offers icon-only header controls with tooltips', () => {
+    analyzeMock.mockReturnValue(new Promise(() => {}));
+
+    render(<App />);
+
+    for (const label of ['Run again', 'Settings', 'Open Typesafe Console']) {
+      const control = screen.getByLabelText(label);
+      expect(control).toHaveAttribute('title', label);
+      expect(control).toHaveTextContent('');
+      expect(control.querySelector('svg')).toBeInTheDocument();
+    }
+  });
+
+  it('opens the Typesafe Console in a new tab', () => {
+    analyzeMock.mockReturnValue(new Promise(() => {}));
+
+    render(<App />);
+
+    const link = screen.getByRole('link', { name: 'Open Typesafe Console' });
+    expect(link).toHaveAttribute('href', 'https://console.typesafe.ai/home');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'));
+  });
+
+  it('opens the settings page from the header and closes the popup', async () => {
+    analyzeMock.mockResolvedValue(RESULT);
+    const openOptionsPage = vi
+      .spyOn(fakeBrowser.runtime, 'openOptionsPage')
+      .mockResolvedValue(undefined);
+
+    render(<App />);
+    await userEvent.click(screen.getByRole('button', { name: 'Settings' }));
+
+    expect(openOptionsPage).toHaveBeenCalledOnce();
+    expect(window.close).toHaveBeenCalledOnce();
+  });
+
   it('shows progress while Jev is working', async () => {
     analyzeMock.mockImplementation(({ onStep } = {}) => {
       onStep?.('sending');

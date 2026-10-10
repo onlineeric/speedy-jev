@@ -2,7 +2,12 @@ import iconUrl from '../../../resources/speedy-jev-icon.svg';
 import { useAnalyzeActivePage } from '../../hooks/use-analyze-active-page';
 import { AnalyzeErrorView } from './AnalyzeErrorView';
 import { AnalyzeResultView } from './AnalyzeResultView';
+import { ExternalLinkIcon, GearIcon, RefreshIcon } from './icons';
+import { IconButton, IconLink } from './IconControls';
 import { openSettingsAndClosePopup } from './open-settings';
+
+// A plain link: opening a tab needs no extra permission and no host access.
+const CONSOLE_URL = 'https://console.typesafe.ai/home';
 
 const LOADING_MESSAGES = {
   capturing: 'Reading page…',
@@ -20,12 +25,18 @@ export function App() {
           <img src={iconUrl} alt="" width={32} height={32} />
           Speedy Jev
         </h1>
-        <button type="button" onClick={rerun} disabled={state.status === 'loading'}>
-          Run again
-        </button>
-        <button type="button" onClick={() => void openSettingsAndClosePopup()}>
-          Settings
-        </button>
+        <IconButton
+          label="Run again"
+          icon={<RefreshIcon />}
+          onClick={rerun}
+          disabled={state.status === 'loading'}
+        />
+        <IconButton
+          label="Settings"
+          icon={<GearIcon />}
+          onClick={() => void openSettingsAndClosePopup()}
+        />
+        <IconLink label="Open Typesafe Console" icon={<ExternalLinkIcon />} href={CONSOLE_URL} />
       </header>
 
       {state.status === 'loading' && (

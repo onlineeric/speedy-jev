@@ -25,6 +25,21 @@ body {
   line-height: 1.2;
 }
 
+/* Shared by icon-only <button> and <a> controls in the header. */
+.icon-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
 .popup__section {
   display: grid;
   gap: 8px;

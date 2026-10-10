@@ -30,7 +30,7 @@ pnpm install
 2. Open `chrome://extensions` (or `edge://extensions`) and turn on **Developer mode**.
 3. Click **Load unpacked** and pick `.output/chrome-mv3-dev` (or `.output/chrome-mv3`).
    On WSL the folder is at `\\wsl.localhost\<distro>\<path-to-repo>\.output\...`.
-4. Pin Speedy Jev, open **Settings**, and paste your Jev API key.
+4. Pin Speedy Jev, open **Settings** (the gear button), and paste your Jev API key.
 
 **Firefox**
 

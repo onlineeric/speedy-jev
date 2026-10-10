@@ -75,7 +75,7 @@ Jev supports three kinds of questions, so you can ask almost anything:
 
 1. **Install Speedy Jev** for your browser (see [Install](#install) below).
 2. **Get a Jev API key** from [TypeSafe AI](https://docs.typesafe.ai).
-3. **Add your key.** Click the Speedy Jev icon, then **Settings** (or right-click the icon →
+3. **Add your key.** Click the Speedy Jev icon, then the **gear** (Settings) button (or right-click the icon →
    **Options**), and paste your key.
 4. **Pin the icon** to your toolbar so it is always one click away.
 5. **Try it.** Open any article, optionally select some text, and click the icon.
